@@ -1,0 +1,39 @@
+/* ===== Schedules page (loads after style.css, uses body.dashboard) ===== */
+body.schedules .dash-dropdown-toggle {
+  font-weight: 600;
+}
+
+.sch-title {
+  padding: 44px 16px 24px;
+  color: #0a2a5c;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+.sch-list {
+  min-height: 160px;
+  list-style: none;
+}
+
+.sch-item {
+  padding: 20px 16px;
+  color: #0a2342;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.sch-item:nth-child(odd) {
+  background: #eaf0f8;
+}
+
+.sch-item p {
+  margin: 0;
+}
+
+.sch-empty {
+  padding: 40px 16px;
+  color: #1c3556;
+  text-align: center;
+}

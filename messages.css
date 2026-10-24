@@ -1,0 +1,281 @@
+/* ===== Email-style conversation (loads after my-tickets.css / prof.css) =====
+   Header + subject stay on top, the Reply box stays at the bottom,
+   and only the emails in between scroll. */
+
+.tk-detail {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 18px clamp(16px, 2.2vw, 30px) 14px;
+}
+
+.tk-detail[hidden] {
+  display: none;
+}
+
+.tk-detail-head,
+.tk-id,
+.tk-subject,
+.tk-onsite,
+.tk-hours,
+.tk-reply {
+  flex: none;
+}
+
+/* compact header so more of the screen is left for the emails */
+.tk-detail-head {
+  gap: 16px;
+}
+
+.tk-avatar-lg {
+  width: 62px;
+  height: 62px;
+}
+
+.tk-who h1 {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+}
+
+.tk-meta {
+  margin-top: 6px;
+}
+
+.tk-status {
+  min-width: 150px;
+  min-height: 44px;
+  padding: 0 22px;
+  font-size: 1.05rem;
+}
+
+.pf-status-btn {
+  font-size: 1.05rem;
+}
+
+.pf-status-menu {
+  top: 22px;
+  padding: 28px 0 10px;
+  border-radius: 0 0 22px 22px;
+}
+
+.pf-opt {
+  padding: 5px 0;
+  font-size: 1rem;
+}
+
+.tk-id {
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+.tk-subject {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+}
+
+/* the scrolling part */
+.tk-thread {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 90px;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 2px 6px 2px 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.mail {
+  padding: 10px 16px 12px;
+  border: 1px solid #d9e2ef;
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.mail.is-me {
+  border-color: #c4d8f2;
+  background: #f3f7fc;
+}
+
+.mail-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mail-avatar {
+  width: 36px;
+  height: 36px;
+  flex: none;
+}
+
+.mail-who {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.mail-who small {
+  margin-left: 6px;
+  font-size: 0.8rem;
+}
+
+.mail-when {
+  color: #4a5d7a;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.mail-body {
+  margin: 4px 0 0 48px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.mail-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0 48px;
+}
+
+.mail-file {
+  max-width: 260px;
+  overflow: hidden;
+  padding: 5px 12px;
+  border: 1px solid #b9cfe8;
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--blue);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mail-file:hover,
+.mail-file:focus-visible {
+  background: #eaf0f8;
+}
+
+/* [hidden] must win over the display set on these elements */
+.tk-pick[hidden],
+.tk-hours[hidden] {
+  display: none;
+}
+
+/* on-site: available hours + date picker on one row */
+.tk-onsite:not([hidden]) {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.tk-hours {
+  margin: 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.tk-pick {
+  flex: 1;
+  min-height: 36px;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* prof side: the "Scheduled" line sits on its own */
+#d-schedule {
+  margin-top: 10px;
+}
+
+/* smaller reply box so everything fits on the screen */
+.tk-reply {
+  margin-top: 10px;
+  padding: 6px 16px 8px;
+}
+
+.tk-reply h3 {
+  padding-bottom: 4px;
+  font-size: 1.1rem;
+}
+
+.tk-reply h3 svg {
+  width: 24px;
+  height: 24px;
+}
+
+.tk-reply textarea {
+  min-height: 58px;
+  max-height: 110px;
+  padding: 10px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: none;
+}
+
+.tk-attach-btn {
+  width: 34px;
+  height: 34px;
+}
+
+.tk-attach-btn svg {
+  width: 26px;
+  height: 26px;
+}
+
+.tk-send {
+  min-width: 150px;
+  min-height: 42px;
+  font-size: 1rem;
+}
+
+/* ---------- Mobile: the page scrolls, not the thread ---------- */
+@media (max-width: 800px) {
+  .tk-detail {
+    display: block;
+    overflow: visible;
+  }
+
+  .tk-thread {
+    overflow: visible;
+    margin-top: 14px;
+  }
+
+  .tk-reply textarea {
+    min-height: 90px;
+  }
+
+  .tk-onsite:not([hidden]) {
+    display: block;
+  }
+
+  .tk-hours {
+    white-space: normal;
+  }
+
+  .tk-pick {
+    margin-top: 8px;
+  }
+
+  .tk-send {
+    min-width: 0;
+  }
+
+  .mail-head {
+    flex-wrap: wrap;
+  }
+
+  .mail-body,
+  .mail-files {
+    margin-left: 0;
+  }
+
+  .mail-when {
+    width: 100%;
+    white-space: normal;
+  }
+}

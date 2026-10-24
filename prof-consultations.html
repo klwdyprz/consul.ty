@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consul.ty | Consultations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="my-tickets.css" />
+    <link rel="stylesheet" href="prof.css" />
+    <link rel="stylesheet" href="messages.css" />
+    <link rel="stylesheet" href="notifications.css" />
+</head>
+
+<body class="dashboard app">
+    <header class="dash-header">
+        <a class="dash-brand" href="prof-dashboard.html" aria-label="Consul.ty home">
+            <img src="images/consultylogo.png" alt="" />
+            <span>Consul.<b>ty</b></span>
+        </a>
+
+        <nav class="dash-nav" aria-label="Main navigation">
+            <a href="prof-dashboard.html">Dashboard</a>
+            <a class="is-active" href="prof-consultations.html" aria-current="page">Consultations</a>
+            <a href="prof-schedules.html">Schedules</a>
+        </nav>
+
+        <a class="dash-user" href="prof-profile.html" title="View profile">
+            <span class="dash-avatar" id="user-avatar"></span>
+            <span id="user-name">username</span>
+        </a>
+    </header>
+
+    <main class="tk-layout">
+        <aside class="tk-list" aria-label="Student consultations">
+            <div class="tk-search">
+                <label class="visually-hidden" for="ticket-search">Search consultation</label>
+                <input type="search" id="ticket-search" placeholder="Search Consultation" autocomplete="off" />
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                    <path d="m15.5 15.5 5 5"></path>
+                </svg>
+            </div>
+            <div id="ticket-list"></div>
+        </aside>
+
+        <section class="tk-detail" id="ticket-detail">
+            <header class="tk-detail-head">
+                <span class="tk-avatar tk-avatar-lg" id="d-avatar"></span>
+                <div class="tk-who">
+                    <h1><span id="d-name">Student Name</span> <small id="d-username">&lt;username&gt;</small></h1>
+                    <p class="tk-meta">
+                        <span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3.5" y="5" width="17" height="15" rx="2"></rect>
+                                <path d="M3.5 10h17M8 3v4M16 3v4"></path>
+                            </svg>
+                            <span id="d-date">MM/DD/YY</span>
+                        </span>
+                        <span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="8.5"></circle>
+                                <path d="M12 7.5V12l3 2"></path>
+                            </svg>
+                            <span id="d-time">12:00pm</span>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="pf-status">
+                    <button type="button" class="tk-status pf-status-btn is-pending" id="d-status"
+                        aria-haspopup="listbox" aria-expanded="false" aria-controls="status-menu">
+                        <span id="d-status-text">Status</span>
+                        <svg class="pf-chevron" id="d-status-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m5 9 7 7 7-7"></path>
+                        </svg>
+                    </button>
+                    <ul class="pf-status-menu" id="status-menu" role="listbox" aria-label="Set status" hidden>
+                        <li role="presentation"><button type="button" class="pf-opt" role="option" data-value="solved">Solved</button></li>
+                        <li role="presentation"><button type="button" class="pf-opt" role="option" data-value="pending">Pending</button></li>
+                        <li role="presentation"><button type="button" class="pf-opt" role="option" data-value="on-site">On-site</button></li>
+                    </ul>
+                </div>
+            </header>
+
+            <p class="tk-id" id="d-id">Consultation ID: ######</p>
+            <h2 class="tk-subject" id="d-subject">Category Name</h2>
+            <ul class="tk-thread" id="thread" role="log" aria-label="Messages"></ul>
+            <p class="tk-hours" id="d-schedule" hidden><strong>Scheduled:</strong><span id="d-schedule-text"></span></p>
+
+            <form class="tk-reply" id="reply-form">
+                <h3>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9.5 5 4 10.5 9.5 16"></path>
+                        <path d="M4 10.5h9a7 7 0 0 1 7 7V19"></path>
+                    </svg>
+                    Reply
+                </h3>
+                <label class="visually-hidden" for="reply-text">Write your reply</label>
+                <textarea id="reply-text" placeholder="Write your reply..." required></textarea>
+                <div class="tk-reply-foot" id="reply-foot">
+                    <div class="tk-attach">
+                        <button type="button" class="tk-attach-btn" id="attach-btn" aria-label="Attach a file">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M10 14.5a3.5 3.5 0 0 0 5 0l3.5-3.5a3.5 3.5 0 0 0-5-5L12 7.5"></path>
+                                <path d="M14 9.5a3.5 3.5 0 0 0-5 0L5.5 13a3.5 3.5 0 0 0 5 5L12 16.5"></path>
+                            </svg>
+                        </button>
+                        <input type="file" id="attach-input" multiple hidden />
+                        <span class="tk-attach-names" id="attach-names"></span>
+                    </div>
+                    <button type="submit" class="tk-send">Send</button>
+                </div>
+                <p class="tk-reply-note" id="reply-note" role="status" hidden></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer dash-footer">
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#contact">Contact Us</a>
+            <a href="#about">About Us</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <p id="credits">© 2026 - (Consul.ty) - Faculty Consultation by Claudee, Crizzy, and Paul</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
+    <script src="notifications.js"></script>
+    <script src="prof-nav.js"></script>
+    <script src="prof-consultations.js"></script>
+</body>
+
+</html>

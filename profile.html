@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consul.ty | My Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profile.css" />
+    <link rel="stylesheet" href="notifications.css" />
+</head>
+
+<body class="dashboard profile" data-role="student">
+    <header class="dash-header">
+        <a class="dash-brand" href="dashboard.html" aria-label="Consul.ty home">
+            <img src="images/consultylogo.png" alt="" />
+            <span>Consul.<b>ty</b></span>
+        </a>
+
+        <nav class="dash-nav" aria-label="Main navigation">
+            <a href="dashboard.html">Dashboard</a>
+
+            <div class="dash-dropdown">
+                <button type="button" class="dash-dropdown-toggle" aria-expanded="false"
+                    aria-controls="consultations-menu">
+                    Consultations
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m5 9 7 7 7-7"></path>
+                    </svg>
+                </button>
+                <ul class="dash-dropdown-menu" id="consultations-menu" hidden>
+                    <li><a href="submit-ticket.html">Submit A Consultation Ticket</a></li>
+                    <li><a href="my-tickets.html">View my Tickets</a></li>
+                </ul>
+            </div>
+
+            <a href="schedules.html">Schedules</a>
+        </nav>
+
+        <div class="dash-side">
+            <button type="button" class="dash-bell" aria-label="Notifications">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a1.4 1.4 0 0 1 1.4 1.4v.6c2.8.6 4.6 3 4.6 6v3.6l1.8 2.7c.4.6 0 1.4-.8 1.4H5c-.8 0-1.2-.8-.8-1.4L6 14.1v-3.6c0-3 1.8-5.4 4.6-6v-.6A1.4 1.4 0 0 1 12 2.5Zm-2.2 16.2h4.4a2.2 2.2 0 0 1-4.4 0Z"></path></svg>
+            </button>
+            <a class="dash-user" href="profile.html" title="View profile" aria-current="page">
+                <span class="dash-avatar" id="user-avatar"></span>
+                <span id="user-name">username</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="pr-main">
+        <div class="pr-card">
+            <section class="pr-top" aria-label="Profile photo">
+                <span class="pr-avatar" id="pr-avatar"></span>
+                <div>
+                    <h1 class="pr-name" id="pr-name">Full Name</h1>
+                    <button type="button" class="pr-upload" id="photo-btn">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 15V4M7.5 8.5 12 4l4.5 4.5"></path>
+                            <path d="M4 14v4.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V14"></path>
+                        </svg>
+                        Upload New Photo
+                    </button>
+                    <input type="file" id="photo-input" accept="image/*" hidden />
+                    <p class="pr-note" id="profile-note" role="status" hidden></p>
+                </div>
+            </section>
+
+            <div id="pr-sections"></div>
+        </div>
+    </main>
+
+    <footer class="footer dash-footer">
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#contact">Contact Us</a>
+            <a href="#about">About Us</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <p id="credits">© 2026 - (Consul.ty) - Faculty Consultation by Claudee, Crizzy, and Paul</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
+    <script src="notifications.js"></script>
+    <script src="profile.js"></script>
+</body>
+
+</html>

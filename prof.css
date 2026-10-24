@@ -1,0 +1,153 @@
+/* ===== Professor side (loads after style.css, my-tickets.css, schedules.css) ===== */
+
+/* ---------- Dashboard ---------- */
+.dash-row.is-onsite .dash-bar-fill {
+  background: #9ccbff;
+}
+
+/* ---------- Consultations: status dropdown ---------- */
+.pf-status {
+  position: relative;
+  flex: none;
+}
+
+.pf-status-btn {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pf-status-btn:disabled {
+  cursor: default;
+}
+
+.pf-status-btn:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.pf-chevron {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+  transition: transform 0.2s ease;
+}
+
+.pf-status-btn[aria-expanded="true"] .pf-chevron {
+  transform: rotate(180deg);
+}
+
+.pf-status-menu {
+  position: absolute;
+  top: 29px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  padding: 36px 0 12px;
+  border-radius: 0 0 28px 28px;
+  background: #001d3d;
+  box-shadow: 0 14px 30px rgba(0, 10, 30, 0.35);
+  list-style: none;
+}
+
+.pf-status-menu[hidden] {
+  display: none;
+}
+
+.pf-opt {
+  display: block;
+  width: 100%;
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.pf-opt:hover,
+.pf-opt:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+.pf-opt[data-value="solved"] {
+  color: #3d97ff;
+}
+
+.pf-opt[data-value="pending"] {
+  color: #b8b8b8;
+}
+
+.pf-opt[data-value="on-site"] {
+  color: #9ccbff;
+}
+
+/* ---------- Consultations: sent / closed state ---------- */
+.tk-reply [hidden],
+.pf-closed[hidden] {
+  display: none !important;
+}
+
+.pf-sent {
+  padding: 18px 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.pf-closed {
+  margin-top: 70px;
+  color: #0a2342;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------- Schedules ---------- */
+.pf-sch-hero {
+  padding: 56px 16px 64px;
+  text-align: center;
+}
+
+.pf-sch-hero h1 {
+  color: var(--white);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+}
+
+.pf-sch-row {
+  display: grid;
+  width: min(100% - 32px, 780px);
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+  .pf-sch-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-chevron {
+    transition: none;
+  }
+}

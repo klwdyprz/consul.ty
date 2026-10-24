@@ -1,0 +1,180 @@
+/* ===== Submit ticket page (body.ticket) ===== */
+body.ticket {
+  background: #001a38 url("images/submitticketbg.png") center top / min(1400px, 140vw) auto repeat-y;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.ticket .dash-header { background: transparent; }
+body.ticket .dash-dropdown-toggle.is-active { font-weight: 600; }
+
+.ticket-main {
+  flex: 1;
+  width: min(100% - 32px, 760px);
+  margin: 0 auto;
+  padding: 50px 0 90px;
+}
+
+.ticket-title {
+  margin-bottom: 44px;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ticket-form { display: flex; flex-direction: column; gap: 44px; align-items: center; }
+
+.ticket-card {
+  width: 100%;
+  padding: clamp(24px, 5vw, 40px);
+  border-radius: 32px;
+  background: var(--white);
+  color: #0a2342;
+}
+
+.ticket-intro { margin-bottom: 22px; }
+
+.tfield { margin-bottom: 22px; }
+.tfield:last-child { margin-bottom: 0; }
+
+.tfield > label,
+.attach-head label,
+.select-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #0a2342;
+  font-weight: 700;
+}
+
+.tfield input[type="text"],
+.tfield textarea {
+  width: 100%;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  outline: none;
+  background: #e5e5e5;
+  color: #0a2342;
+  font: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.tfield input[type="text"] { height: 48px; }
+.tfield textarea { padding: 14px 16px; resize: vertical; min-height: 180px; }
+
+.tfield input[type="text"]:focus,
+.tfield textarea:focus { border-color: var(--blue); background: #ececec; }
+
+.is-invalid .select-toggle,
+.is-invalid input[type="text"],
+.is-invalid textarea { border-color: #e5252a; }
+
+.ticket .field-error { margin: 6px 0 0; color: #d11a1f; font-size: 0.85rem; }
+
+/* Attachments */
+.attach-head { display: flex; align-items: center; justify-content: space-between; }
+.attach-head label { margin-bottom: 8px; }
+
+.attach-btn {
+  display: grid; width: 36px; height: 32px; margin-bottom: 4px; place-items: center;
+  border: 0; background: transparent; color: var(--navy); cursor: pointer;
+}
+.attach-btn svg {
+  width: 30px; height: 30px; fill: none; stroke: currentColor;
+  stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.dropzone {
+  display: flex; min-height: 110px; flex-direction: column; align-items: center;
+  justify-content: center; gap: 2px; border: 2px dashed transparent; border-radius: 4px;
+  background: #e5e5e5; color: #4a5d7a; text-align: center; cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.dropzone strong { font-size: 1.3rem; font-weight: 600; }
+.dropzone small { font-size: 0.7rem; }
+.dropzone:hover,
+.dropzone:focus-visible,
+.dropzone.is-over { border-color: var(--blue); background: #dde6f2; outline: none; }
+
+.file-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; list-style: none; }
+.file-list li {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 12px; border-radius: 6px; background: #eaf0f8; font-size: 0.9rem;
+}
+.file-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-list button {
+  border: 0; background: transparent; color: #d11a1f; cursor: pointer; font: inherit; font-weight: 700;
+}
+
+.ticket-submit {
+  width: min(100%, 340px); min-height: 58px; border: 0; border-radius: 30px;
+  background: var(--white); color: var(--navy); cursor: pointer;
+  font: inherit; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.03em;
+  text-transform: uppercase; transition: background-color 0.2s ease;
+}
+.ticket-submit:hover,
+.ticket-submit:focus-visible { background: #eaf0f8; }
+.ticket-submit:disabled { opacity: 0.6; cursor: wait; }
+
+.ticket-status { margin-top: -24px; text-align: center; }
+
+/* ===== Custom dropdown ===== */
+.select { position: relative; margin-bottom: 22px; }
+.select:last-child { margin-bottom: 0; }
+
+.select-toggle {
+  display: flex; width: 100%; height: 48px; padding: 0 16px;
+  align-items: center; justify-content: space-between; gap: 12px;
+  border: 2px solid transparent; border-radius: 4px;
+  background: #e5e5e5; color: #0a2342; cursor: pointer;
+  font: inherit; text-align: left;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.select-toggle:hover { background: #dcdcdc; }
+.select-toggle:focus-visible,
+.select-toggle[aria-expanded="true"] { border-color: var(--blue); outline: none; }
+
+.select-value.is-placeholder { color: #6b7686; }
+
+.select-toggle svg {
+  flex: none; width: 20px; height: 20px; fill: none; stroke: var(--navy);
+  stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform 0.2s ease;
+}
+.select-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.select-menu {
+  position: absolute; top: calc(100% + 4px); right: 0; left: 0; z-index: 20;
+  max-height: 260px; overflow-y: auto; padding: 6px; list-style: none;
+  border-radius: 8px; background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+.select-menu[hidden] { display: none; }
+
+.select-menu li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 12px; border-radius: 6px; color: #0a2342; cursor: pointer;
+}
+.select-menu li:hover,
+.select-menu li.is-focused { background: #eaf0f8; }
+.select-menu li[aria-selected="true"] { font-weight: 700; color: var(--blue); }
+.select-menu li[aria-selected="true"]::after { content: "✓"; }
+
+@media (prefers-reduced-motion: reduce) {
+  .select-toggle svg, .select-toggle, .dropzone { transition: none; }
+}
+
+/* ===== Step-by-step reveal ===== */
+.ticket [hidden] { display: none !important; }
+.ticket-card, .ticket-submit { scroll-margin-block: 90px; }
+
+.is-reveal { animation: reveal 0.45s ease both; }
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .is-reveal { animation: none; } }
