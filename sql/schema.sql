@@ -1,6 +1,4 @@
 -- Consul.ty: Supabase (Postgres) schema
--- Run once in Supabase Dashboard > SQL Editor.
--- Passwords live in Supabase Auth (auth.users), NOT in these tables.
 
 -- ---------- Tables ----------
 create table public.admins (
@@ -31,7 +29,7 @@ create table public.professors (
   email text not null unique,
   department text,
   avatar_url text,
-  available_days smallint[] not null default '{}',   -- 0 = Sunday ... 6 = Saturday
+  available_days smallint[] not null default '{}',
   available_start time not null default '13:00',
   available_end time not null default '15:00'
 );
@@ -79,7 +77,7 @@ create table public.schedules (
   date date not null,
   start_time time not null,
   end_time time not null,
-  unique (professor_id, date, start_time)             -- no double booking
+  unique (professor_id, date, start_time)
 );
 
 -- ---------- Helpers ----------
@@ -119,7 +117,7 @@ create trigger students_lock_number
   before update on public.students
   for each row execute function public.lock_student_number();
 
--- Professor reply: sets status + saves reply, once. Locked after that (matches prof-consultations.js).
+-- Professor reply: sets status + saves reply, once. Locked after that.
 create function public.professor_reply(p_ticket bigint, p_message text, p_status text)
 returns void language plpgsql security definer set search_path = public as $$
 declare t public.consultations;
@@ -170,19 +168,19 @@ create policy "prof reads own students" on public.students
 create policy "student updates self" on public.students
   for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
 
--- professors (every signed-in user can list them for the "Select a professor" dropdown)
+-- professors
 create policy "anyone signed in reads professors" on public.professors
   for select to authenticated using (true);
 create policy "prof updates self" on public.professors
   for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
 
--- consultations (professors change them only through professor_reply())
+-- consultations
 create policy "see own consultations" on public.consultations
   for select to authenticated using (student_id = auth.uid() or professor_id = auth.uid());
 create policy "student creates consultation" on public.consultations
   for insert to authenticated with check (student_id = auth.uid() and status = 'pending');
 
--- messages (the subquery respects consultations RLS, so only visible tickets match)
+-- messages
 create policy "see messages" on public.consultation_messages
   for select to authenticated using (
     exists (select 1 from public.consultations c where c.id = consultation_id));
@@ -201,7 +199,7 @@ create policy "add attachments" on public.consultation_attachments
     uploader_id = auth.uid()
     and exists (select 1 from public.consultations c where c.id = consultation_id));
 
--- schedules (student books a slot once the prof set the ticket to on-site)
+-- schedule
 create policy "see own schedules" on public.schedules
   for select to authenticated using (student_id = auth.uid() or professor_id = auth.uid());
 create policy "student books slot" on public.schedules
@@ -213,7 +211,7 @@ create policy "student books slot" on public.schedules
                    and c.professor_id = schedules.professor_id
                    and c.status = 'on-site'));
 
--- admin can do everything (for the admin side you'll upload later)
+-- admin can do everything
 do $$
 declare t text;
 begin

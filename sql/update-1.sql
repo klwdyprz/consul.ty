@@ -1,5 +1,4 @@
 -- Consul.ty update 1: new signup fields + in-app notifications
--- Run in Supabase SQL Editor AFTER schema.sql.
 
 -- ---------- 1) Signup now sends last_name / first_name / middle_initial ----------
 create or replace function public.handle_new_user() returns trigger
@@ -98,7 +97,7 @@ create trigger schedule_created_notify
   after insert on public.schedules
   for each row execute function public.notify_new_schedule();
 
--- professor replies -> student is notified (same function as before + notification)
+-- professor replies -> student is notified
 create or replace function public.professor_reply(p_ticket bigint, p_message text, p_status text)
 returns void language plpgsql security definer set search_path = public as $$
 declare

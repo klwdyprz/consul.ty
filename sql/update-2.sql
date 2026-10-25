@@ -1,5 +1,4 @@
--- Consul.ty update 2: real two-way messaging (no more lock after the first reply)
--- Run in Supabase SQL Editor AFTER schema.sql and update-1.sql.
+-- Consul.ty update 2: real two-way messaging
 
 -- ---------- 1) attachments can belong to a specific message ----------
 alter table public.consultation_attachments
@@ -13,7 +12,7 @@ create policy "prof sends message" on public.consultation_messages
     and exists (select 1 from public.consultations c
                  where c.id = consultation_id and c.professor_id = auth.uid()));
 
--- ---------- 3) status can be changed any time (replaces the one-shot professor_reply) ----------
+-- ---------- 3) status can be changed any time ----------
 drop function if exists public.professor_reply(bigint, text, text);
 
 create function public.professor_set_status(p_ticket bigint, p_status text)
