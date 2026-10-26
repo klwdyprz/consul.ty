@@ -100,6 +100,8 @@
         id: r.id,
         code: code(r.id),
         category: r.category,
+        description: r.description,
+        created_at: db.stamp(r.created_at),
         student: { name: nameOf(r.student), avatar_url: r.student && r.student.avatar_url },
         professor: { name: nameOf(r.professor) },
         updated_at: db.stamp(last ? last.created_at : r.created_at),
@@ -126,16 +128,29 @@
 
     const messages = must(msgs);
     const attachments = must(files);
-    const firstId = messages[0] && messages[0].id;
-
-    return messages.map((m) => ({
+    const conversation = [];
+    if (ticket.description) {
+      conversation.push({
+        id: null,
+        from: ticket.student.name,
+        role: "student",
+        body: ticket.description,
+        created_at: ticket.created_at,
+      });
+    }
+    conversation.push(...messages.map((m) => ({
+      id: m.id,
       from: m.sender_role === "student" ? ticket.student.name : ticket.professor.name,
       role: m.sender_role,
       body: m.body,
       created_at: db.stamp(m.created_at),
-      // files with no message_id came with the original ticket, so they belong to the first message
+    })));
+
+    return conversation.map((message, index) => ({
+      ...message,
+      // Attachments without a message_id belong to the original request, or the first reply if absent.
       files: attachments
-        .filter((a) => a.message_id === m.id || (a.message_id == null && m.id === firstId))
+        .filter((a) => a.message_id === message.id || (a.message_id == null && index === 0))
         .map((a) => a.file_name),
     }));
   };
