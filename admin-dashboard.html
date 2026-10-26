@@ -28,41 +28,41 @@
                 <a href="admin-consultations.html">Consultations</a>
             </nav>
 
-            <a class="dash-user" href="#" title="Admin account">
-                <span class="dash-avatar" id="user-avatar"></span>
-                <span id="user-name">username</span>
-            </a>
+            <button type="button" class="dash-user adm-logout" id="logout-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"></path><path d="M16 8l4 4-4 4M20 12H9"></path></svg>
+                Log Out
+            </button>
         </header>
 
-        <section class="dash-hero ad-hero" aria-labelledby="announce-heading">
-            <div class="dash-appointment ad-announce">
-                <div class="ad-announce-head">
+        <section class="dash-hero adm-hero" aria-labelledby="announce-heading">
+            <div class="dash-appointment adm-announce">
+                <div class="adm-announce-head">
                     <h1 id="announce-heading">Current system announcement:</h1>
-                    <button type="button" class="ad-switch" id="announce-switch" role="switch"
+                    <button type="button" class="adm-switch" id="announce-switch" role="switch"
                         aria-checked="false" aria-label="Show announcement to users"></button>
                 </div>
 
-                <div class="ad-announce-box" id="announce-box">
-                    <button type="button" class="ad-edit" id="announce-edit">
+                <div class="adm-announce-box" id="announce-box">
+                    <button type="button" class="adm-edit" id="announce-edit">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 1-4L16.5 4.5a2 2 0 0 1 3 3L8 19l-4 1Z"></path></svg>
                         Edit
                     </button>
                     <p id="announce-text">No announcement yet.</p>
-                    <form class="ad-form" id="announce-form" hidden>
+                    <form class="adm-form" id="announce-form" hidden>
                         <label class="visually-hidden" for="announce-input">Announcement text</label>
                         <textarea id="announce-input" maxlength="500" placeholder="Write an announcement for all users..."></textarea>
-                        <div class="ad-form-actions">
+                        <div class="adm-form-actions">
                             <button type="button" id="announce-cancel">Cancel</button>
                             <button type="submit" class="is-primary">Save</button>
                         </div>
                     </form>
                 </div>
-                <p class="ad-note" id="announce-note" role="status" hidden></p>
+                <p class="adm-note" id="announce-note" role="status" hidden></p>
             </div>
         </section>
     </div>
 
-    <main class="dash-stats ad-stats">
+    <main class="dash-stats adm-stats">
         <section class="dash-card" aria-labelledby="weekly-heading">
             <h2 id="weekly-heading">Weekly consultations <b id="weekly-total">0</b></h2>
             <ul class="dash-rows" id="weekly-rows"></ul>
@@ -70,11 +70,11 @@
 
         <section class="dash-card" aria-labelledby="dept-heading">
             <h2 id="dept-heading">Tickets by department</h2>
-            <div class="ad-donut-wrap">
-                <div class="ad-donut" id="donut" role="img" aria-label="Tickets by department">
-                    <div class="ad-donut-total"><strong id="donut-total">0</strong><span>tickets</span></div>
+            <div class="adm-donut-wrap">
+                <div class="adm-donut" id="donut" role="img" aria-label="Tickets by department">
+                    <div class="adm-donut-total"><strong id="donut-total">0</strong><span>tickets</span></div>
                 </div>
-                <ul class="ad-legend" id="legend"></ul>
+                <ul class="adm-legend" id="legend"></ul>
             </div>
         </section>
     </main>

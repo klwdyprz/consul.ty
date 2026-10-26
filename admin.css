@@ -1,145 +1,159 @@
 /* ===== Admin side (loads after style.css, notifications.css) ===== */
-.ad-hero { padding: 56px 3.3vw 80px; }
+.adm-hero { padding: 56px 3.3vw 80px; }
 
-.ad-announce { padding: 28px clamp(20px, 5vw, 56px) 40px; }
+.adm-announce { padding: 28px clamp(20px, 5vw, 56px) 40px; }
 
-.ad-announce-head {
+.adm-announce-head {
   display: flex; align-items: center; justify-content: center;
   flex-wrap: wrap; gap: 16px 28px; margin-bottom: 28px;
 }
-.ad-announce-head h1 { margin: 0; font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 700; }
+.adm-announce-head h1 { margin: 0; font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 700; }
 
-.ad-switch {
+.adm-switch {
   position: relative; width: 86px; height: 40px; border: 0; border-radius: 20px;
   background: rgba(255, 255, 255, 0.35); cursor: pointer; transition: background-color 0.2s ease;
 }
-.ad-switch::after {
+.adm-switch::after {
   position: absolute; top: 5px; left: 5px; width: 30px; height: 30px; border-radius: 50%;
   background: var(--white); content: ""; transition: transform 0.2s ease;
 }
-.ad-switch[aria-checked="true"] { background: var(--blue); }
-.ad-switch[aria-checked="true"]::after { transform: translateX(46px); }
-.ad-switch:focus-visible, .ad-edit:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+.adm-switch[aria-checked="true"] { background: var(--blue); }
+.adm-switch[aria-checked="true"]::after { transform: translateX(46px); }
+.adm-switch:focus-visible, .adm-edit:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
 
-.ad-announce-box {
+.adm-announce-box {
   position: relative; min-height: 150px; padding: 46px clamp(16px, 4vw, 48px) 28px;
   border-radius: 28px; background: rgba(255, 255, 255, 0.18);
 }
-.ad-announce-box p {
+.adm-announce-box p {
   font-size: clamp(1.3rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.4;
   overflow-wrap: anywhere; white-space: pre-line;
 }
-.ad-announce-box.is-off p { opacity: 0.55; }
+.adm-announce-box.is-off p { opacity: 0.55; }
 
-.ad-edit {
+.adm-edit {
   position: absolute; top: 16px; right: 20px; display: inline-flex; align-items: center; gap: 6px;
   min-height: 30px; padding: 0 16px; border: 0; border-radius: 16px;
   background: rgba(255, 255, 255, 0.85); color: #0a2342; cursor: pointer;
   font: inherit; font-size: 0.75rem; font-weight: 700;
 }
-.ad-edit svg { width: 12px; height: 12px; fill: currentColor; }
+.adm-edit svg { width: 12px; height: 12px; fill: currentColor; }
 
-.ad-form textarea {
+.adm-form textarea {
   display: block; width: 100%; min-height: 120px; padding: 14px 16px; border: 2px solid transparent;
   border-radius: 12px; outline: none; background: var(--white); color: #0a2342;
   font: inherit; font-size: 1.1rem; line-height: 1.5; resize: vertical;
 }
-.ad-form textarea:focus { border-color: var(--blue); }
-.ad-form-actions { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
-.ad-form-actions button {
+.adm-form textarea:focus { border-color: var(--blue); }
+.adm-form-actions { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+.adm-form-actions button {
   min-height: 40px; padding: 0 26px; border: 0; border-radius: 20px; background: rgba(255,255,255,.85);
   color: #0a2342; cursor: pointer; font: inherit; font-weight: 700;
 }
-.ad-form-actions .is-primary { background: var(--blue); color: var(--white); }
-.ad-form-actions button:disabled { opacity: 0.6; cursor: default; }
-.ad-note { margin-top: 10px; font-size: 0.9rem; text-align: center; }
+.adm-form-actions .is-primary { background: var(--blue); color: var(--white); }
+.adm-form-actions button:disabled { opacity: 0.6; cursor: default; }
+.adm-note { margin-top: 10px; font-size: 0.9rem; text-align: center; }
 
 /* ---------- Stats ---------- */
-.ad-stats { grid-template-columns: 1fr 1fr; align-items: stretch; max-width: 1250px; }
-.ad-stats .dash-card { padding: clamp(22px, 3vw, 32px); }
-.ad-stats .dash-card h2 { display: flex; justify-content: space-between; gap: 12px; font-size: 1.05rem; }
-.ad-stats .dash-card h2 b { color: var(--navy); }
-.ad-stats .dash-row { grid-template-columns: clamp(80px, 10vw, 120px) 1fr 40px; font-size: 1.05rem; }
-.ad-stats .dash-bar { height: 26px; border-radius: 13px; }
-.ad-stats .dash-bar-fill { min-width: 26px; border-radius: 13px; background: #9ccbff; }
+.adm-stats { grid-template-columns: 1fr 1fr; align-items: stretch; max-width: 1250px; }
+.adm-stats .dash-card { padding: clamp(22px, 3vw, 32px); }
+.adm-stats .dash-card h2 { display: flex; justify-content: space-between; gap: 12px; font-size: 1.05rem; }
+.adm-stats .dash-card h2 b { color: var(--navy); }
+.adm-stats .dash-row { grid-template-columns: clamp(80px, 10vw, 120px) 1fr 40px; font-size: 1.05rem; }
+.adm-stats .dash-bar { height: 26px; border-radius: 13px; }
+.adm-stats .dash-bar-fill { min-width: 26px; border-radius: 13px; background: #9ccbff; }
 
-.ad-donut-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px; padding-top: 10px; }
-.ad-donut {
+.adm-donut-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px; padding-top: 10px; }
+.adm-donut {
   position: relative; width: 220px; height: 220px; flex: none; border-radius: 50%;
   background: #eaf0f8;
 }
-.ad-donut::after {
+.adm-donut::after {
   position: absolute; inset: 24px; border-radius: 50%; background: var(--white); content: "";
 }
-.ad-donut-total {
+.adm-donut-total {
   position: absolute; inset: 0; z-index: 1; display: grid; place-content: center;
   color: var(--navy); text-align: center; font-weight: 700; line-height: 1.1;
 }
-.ad-donut-total strong { font-size: 2.4rem; }
-.ad-donut-total span { font-size: 1.2rem; }
+.adm-donut-total strong { font-size: 2.4rem; }
+.adm-donut-total span { font-size: 1.2rem; }
 
-.ad-legend { display: flex; flex-direction: column; gap: 14px; list-style: none; color: #444; }
-.ad-legend li { display: grid; grid-template-columns: 18px 1fr auto; align-items: center; gap: 12px; min-width: 220px; }
-.ad-legend i { width: 18px; height: 18px; border-radius: 4px; }
-.ad-legend b { font-weight: 700; }
-.ad-empty { padding: 28px 0; color: #1c3556; text-align: center; }
+.adm-legend { display: flex; flex-direction: column; gap: 14px; list-style: none; color: #444; }
+.adm-legend li { display: grid; grid-template-columns: 18px 1fr auto; align-items: center; gap: 12px; min-width: 220px; }
+.adm-legend i { width: 18px; height: 18px; border-radius: 4px; }
+.adm-legend b { font-weight: 700; }
+.adm-empty { padding: 28px 0; color: #1c3556; text-align: center; }
 
 /* ---------- Consultations (search + export) ---------- */
-.ad-search-hero { padding: 56px 3.3vw 70px; }
-.ad-search { position: relative; max-width: 1150px; margin: 0 auto; }
-.ad-search input {
+.adm-search-hero { padding: 56px 3.3vw 70px; }
+.adm-search { position: relative; max-width: 1150px; margin: 0 auto; }
+.adm-search input {
   width: 100%; height: 86px; padding: 0 84px 0 48px; border: 2px solid var(--white);
   border-radius: 43px; outline: none; background: rgba(0, 0, 0, 0.12); color: var(--white);
   font: inherit; font-size: 1.4rem;
 }
-.ad-search input::placeholder { color: rgba(255, 255, 255, 0.85); }
-.ad-search input:focus { background: rgba(0, 0, 0, 0.26); box-shadow: 0 0 0 3px rgba(255,255,255,.25); }
-.ad-search svg {
+.adm-search input::placeholder { color: rgba(255, 255, 255, 0.85); }
+.adm-search input:focus { background: rgba(0, 0, 0, 0.26); box-shadow: 0 0 0 3px rgba(255,255,255,.25); }
+.adm-search svg {
   position: absolute; top: 50%; right: 36px; width: 38px; height: 38px; transform: translateY(-50%);
   fill: none; stroke: var(--white); stroke-linecap: round; stroke-width: 2; pointer-events: none;
 }
 
-.ad-results { flex: 1; max-width: 1150px; width: 100%; margin: 0 auto; padding: 36px 3.3vw 60px; }
-.ad-results h2 { margin-bottom: 20px; color: #0a2a5c; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; }
-.ad-list { display: flex; flex-direction: column; gap: 18px; list-style: none; }
+.adm-results { flex: 1; max-width: 1150px; width: 100%; margin: 0 auto; padding: 36px 3.3vw 60px; }
+.adm-results h2 { margin-bottom: 20px; color: #0a2a5c; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; }
+.adm-list { display: flex; flex-direction: column; gap: 18px; list-style: none; }
 
-.ad-item {
+.adm-item {
   display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 26px;
   padding: 26px clamp(20px, 4vw, 52px); border-radius: 40px; background: var(--white);
   box-shadow: 0 10px 50px rgba(10, 35, 66, 0.15); color: #0a2342;
 }
-.ad-item .tk-avatar { width: 74px; height: 74px; }
-.ad-item-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; max-width: 560px; }
-.ad-item-top strong { font-size: 1.1rem; }
-.ad-item-top time { font-size: 0.78rem; }
-.ad-item-cat { display: block; font-size: 1.1rem; font-weight: 700; }
-.ad-item-prev {
+.adm-item .tk-avatar { width: 74px; height: 74px; }
+.adm-item-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; max-width: 560px; }
+.adm-item-top strong { font-size: 1.1rem; }
+.adm-item-top time { font-size: 0.78rem; }
+.adm-item-cat { display: block; font-size: 1.1rem; font-weight: 700; }
+.adm-item-prev {
   display: -webkit-box; max-width: 560px; overflow: hidden; font-size: 1.1rem; line-height: 1.35;
   -webkit-box-orient: vertical; -webkit-line-clamp: 2;
 }
-.ad-item-meta { margin-top: 4px; color: #4a5d7a; font-size: 0.82rem; }
+.adm-item-meta { margin-top: 4px; color: #4a5d7a; font-size: 0.82rem; }
 
-.ad-export {
+.adm-export {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-width: 190px; min-height: 42px; padding: 0 22px; border: 0; border-radius: 6px;
   background: #e5e5e5; color: #0a2342; cursor: pointer; font: inherit; font-weight: 700;
   transition: background-color 0.2s ease;
 }
-.ad-export:hover, .ad-export:focus-visible { background: #d4d4d4; }
-.ad-export:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-.ad-export:disabled { opacity: 0.6; cursor: wait; }
-.ad-export svg {
+.adm-export:hover, .adm-export:focus-visible { background: #d4d4d4; }
+.adm-export:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.adm-export:disabled { opacity: 0.6; cursor: wait; }
+.adm-export svg {
   width: 20px; height: 20px; fill: none; stroke: currentColor;
   stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;
 }
 
 @media (max-width: 800px) {
-  .ad-stats { grid-template-columns: 1fr; }
-  .ad-search input { height: 64px; font-size: 1.1rem; padding-left: 28px; }
-  .ad-item { grid-template-columns: 56px 1fr; gap: 16px; border-radius: 28px; }
-  .ad-item .tk-avatar { width: 56px; height: 56px; }
-  .ad-export { grid-column: 1 / -1; }
-  .ad-edit { position: static; margin: 0 0 12px auto; display: flex; }
-  .ad-announce-box { padding-top: 18px; }
+  .adm-stats { grid-template-columns: 1fr; }
+  .adm-search input { height: 64px; font-size: 1.1rem; padding-left: 28px; }
+  .adm-item { grid-template-columns: 56px 1fr; gap: 16px; border-radius: 28px; }
+  .adm-item .tk-avatar { width: 56px; height: 56px; }
+  .adm-export { grid-column: 1 / -1; }
+  .adm-edit { position: static; margin: 0 0 12px auto; display: flex; }
+  .adm-announce-box { padding-top: 18px; }
 }
-@media (prefers-reduced-motion: reduce) { .ad-switch, .ad-switch::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .adm-switch, .adm-switch::after { transition: none; } }
+
+/* ---------- Log Out button (replaces the profile chip) ---------- */
+.adm-logout {
+  min-height: 44px; padding: 0 22px; border: 2px solid var(--white); border-radius: 24px;
+  background: transparent; color: var(--white); cursor: pointer; font: inherit;
+  font-size: 0.9rem; font-weight: 700; text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.adm-logout svg {
+  width: 20px; height: 20px; fill: none; stroke: currentColor;
+  stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;
+}
+.adm-logout:hover, .adm-logout:focus-visible { background: var(--white); color: #0a2342; outline: none; }
+.adm-logout:focus-visible { box-shadow: 0 0 0 3px var(--blue); }

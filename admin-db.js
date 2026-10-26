@@ -1,3 +1,7 @@
+/* Admin data layer. Loads after supabase.js and adds admin calls onto the same `db` object.
+   
+   consultation_messages, consultation_attachments, plus the new announcements table (admin.sql).
+   The "admin all" RLS policies already give admins read/write on everything. */
 (() => {
   const client = db.client;
 
@@ -135,4 +139,8 @@
         .map((a) => a.file_name),
     }));
   };
+
+  /* Log Out button in the header (both admin pages) */
+  const logout = document.getElementById("logout-btn");
+  if (logout) logout.addEventListener("click", () => db.signOut());
 })();

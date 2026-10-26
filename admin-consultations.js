@@ -116,24 +116,24 @@ function render() {
     const avatar = make("span", "tk-avatar");
     setAvatar(avatar, ticket.student.avatar_url);
 
-    const top = make("div", "ad-item-top");
+    const top = make("div", "adm-item-top");
     top.append(make("strong", "", ticket.student.name), make("time", "", formatTime(ticket.updated_at)));
 
     const body = make("div");
     body.append(
       top,
-      make("span", "ad-item-cat", ticket.category),
-      make("span", "ad-item-prev", ticket.preview),
-      make("p", "ad-item-meta", `Consultation ID: ${ticket.code} · To ${ticket.professor.name}`),
+      make("span", "adm-item-cat", ticket.category),
+      make("span", "adm-item-prev", ticket.preview),
+      make("p", "adm-item-meta", `Consultation ID: ${ticket.code} · To ${ticket.professor.name}`),
     );
 
-    const button = make("button", "ad-export");
+    const button = make("button", "adm-export");
     button.type = "button";
     button.innerHTML = `${DOWNLOAD_ICON}Export`;
     button.setAttribute("aria-label", `Export consultation ${ticket.code}`);
     button.addEventListener("click", () => exportTicket(ticket, button));
 
-    const item = make("li", "ad-item");
+    const item = make("li", "adm-item");
     item.append(avatar, body, button);
     list.append(item);
   });
@@ -145,8 +145,6 @@ db.adminTickets()
   .then((data) => {
     if (!data) return;
     tickets = data.tickets;
-    document.getElementById("user-name").textContent = data.user.name;
-    setAvatar(document.getElementById("user-avatar"), data.user.avatar_url);
     render();
   })
   .catch((error) => {

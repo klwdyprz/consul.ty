@@ -8,16 +8,7 @@ function make(tag, className, text) {
   return el;
 }
 
-function renderUser(user) {
-  document.getElementById("user-name").textContent = user.name;
-  if (user.avatar_url) {
-    const img = document.createElement("img");
-    img.src = user.avatar_url;
-    img.alt = "";
-    document.getElementById("user-avatar").replaceChildren(img);
-  }
-}
-
+/* ---------- Announcement ---------- */
 const box = document.getElementById("announce-box");
 const text = document.getElementById("announce-text");
 const form = document.getElementById("announce-form");
@@ -77,6 +68,7 @@ form.addEventListener("submit", async (event) => {
   if (ok) setEditing(false);
 });
 
+/* ---------- Charts ---------- */
 function renderWeekly(weekly) {
   const max = Math.max(...weekly, 1);
   document.getElementById("weekly-total").textContent = weekly.reduce((a, b) => a + b, 0);
@@ -106,10 +98,11 @@ function renderDepartments(departments) {
   const donut = document.getElementById("donut");
 
   if (!total) {
-    legend.replaceChildren(make("li", "ad-empty", "No tickets yet."));
+    legend.replaceChildren(make("li", "adm-empty", "No tickets yet."));
     return;
   }
 
+  // top 3 departments get their own colour, the rest are grouped
   const shown = departments.slice(0, 3);
   const rest = departments.slice(3).reduce((sum, d) => sum + d.count, 0);
   if (rest) shown.push({ name: "Others", count: rest });
@@ -134,7 +127,6 @@ function renderDepartments(departments) {
 
 db.adminDashboard().then((data) => {
   if (!data) return;
-  renderUser(data.user);
   announcement = data.announcement;
   renderAnnouncement();
   renderWeekly(data.weekly);

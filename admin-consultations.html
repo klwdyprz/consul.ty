@@ -28,14 +28,14 @@
                 <a class="is-active" aria-current="page" href="admin-consultations.html">Consultations</a>
             </nav>
 
-            <a class="dash-user" href="#" title="Admin account">
-                <span class="dash-avatar" id="user-avatar"></span>
-                <span id="user-name">username</span>
-            </a>
+            <button type="button" class="dash-user adm-logout" id="logout-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"></path><path d="M16 8l4 4-4 4M20 12H9"></path></svg>
+                Log Out
+            </button>
         </header>
 
-        <section class="ad-search-hero">
-            <div class="ad-search">
+        <section class="adm-search-hero">
+            <div class="adm-search">
                 <label class="visually-hidden" for="admin-search">Search consultations</label>
                 <input type="search" id="admin-search" placeholder="Search" autocomplete="off" />
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -46,9 +46,9 @@
         </section>
     </div>
 
-    <main class="ad-results">
+    <main class="adm-results">
         <h2>Result:</h2>
-        <ul class="ad-list" id="admin-list"></ul>
+        <ul class="adm-list" id="admin-list"></ul>
         <p class="tk-reply-note" id="export-note" role="status" hidden></p>
     </main>
 
