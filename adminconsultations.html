@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consul.ty | Consultations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="my-tickets.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="notifications.css" />
+</head>
+
+<body class="dashboard">
+    <div class="dash-top">
+        <header class="dash-header">
+            <a class="dash-brand" href="admin-dashboard.html" aria-label="Consul.ty home">
+                <img src="images/consultylogo.png" alt="" />
+                <span>Consul.<b>ty</b></span>
+            </a>
+
+            <nav class="dash-nav" aria-label="Main navigation">
+                <a href="admin-dashboard.html">Dashboard</a>
+                <a class="is-active" aria-current="page" href="admin-consultations.html">Consultations</a>
+            </nav>
+
+            <a class="dash-user" href="#" title="Admin account">
+                <span class="dash-avatar" id="user-avatar"></span>
+                <span id="user-name">username</span>
+            </a>
+        </header>
+
+        <section class="ad-search-hero">
+            <div class="ad-search">
+                <label class="visually-hidden" for="admin-search">Search consultations</label>
+                <input type="search" id="admin-search" placeholder="Search" autocomplete="off" />
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                    <path d="m15.5 15.5 5 5"></path>
+                </svg>
+            </div>
+        </section>
+    </div>
+
+    <main class="ad-results">
+        <h2>Result:</h2>
+        <ul class="ad-list" id="admin-list"></ul>
+        <p class="tk-reply-note" id="export-note" role="status" hidden></p>
+    </main>
+
+    <footer class="footer dash-footer">
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#contact">Contact Us</a>
+            <a href="#about">About Us</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+        <p id="credits">© 2026 - (Consul.ty) - Faculty Consultation by Claudee, Crizzy, and Paul</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <script src="supabase.js"></script>
+    <script src="admin-db.js"></script>
+    <script src="notifications.js"></script>
+    <script src="prof-nav.js"></script>
+    <script src="admin-consultations.js"></script>
+</body>
+
+</html>
