@@ -53,52 +53,138 @@ function matches(ticket, query) {
     .includes(query);
 }
 
-/* ---------- Export: the whole in-app chat as a .txt file ---------- */
-function transcript(ticket, messages) {
-  const lines = [
-    "Consul.ty consultation export",
-    `Consultation ID: ${ticket.code}`,
-    `Category: ${ticket.category}`,
-    `Student: ${ticket.student.name}`,
-    `Professor: ${ticket.professor.name}`,
-    `Exported: ${formatDate(new Date().toISOString())} ${formatTime(new Date().toISOString())}`,
-    "",
-    "----------------------------------------",
-    "",
-  ];
-
-  messages.forEach((m) => {
-    lines.push(`[${formatDate(m.created_at)} ${formatTime(m.created_at)}] ${m.from} (${m.role})`);
-    lines.push(m.body, "");
-    if (m.files.length) lines.push(`Attachments: ${m.files.join(", ")}`, "");
-  });
-
-  return lines.join("\n");
-}
-
-function download(filename, content) {
-  const url = URL.createObjectURL(new Blob([content], { type: "text/plain;charset=utf-8" }));
+/* ---------- Export: consultation details and the whole in-app chat ---------- */
+function download(filename, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
   const link = document.createElement("a");
   link.href = url;
   link.download = filename;
   document.body.append(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-async function exportTicket(ticket, button) {
+function exportPdf(ticket, messages) {
+  const JsPDF = window.jspdf && window.jspdf.jsPDF;
+  if (!JsPDF) throw new Error("The PDF export library did not load.");
+
+  const doc = new JsPDF();
+  const margin = 15;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const lineHeight = 5.5;
+  let y = 20;
+
+  function writeText(value, options = {}) {
+    const { size = 10, style = "normal", gap = 3 } = options;
+    doc.setFont("helvetica", style);
+    doc.setFontSize(size);
+    let lines = doc.splitTextToSize(String(value || " "), pageWidth - margin * 2);
+    while (lines.length) {
+      const availableLines = Math.floor((pageHeight - margin - y) / lineHeight);
+      if (availableLines <= 0) {
+        doc.addPage();
+        y = 20;
+        continue;
+      }
+      const pageLines = lines.splice(0, availableLines);
+      doc.text(pageLines, margin, y);
+      y += pageLines.length * lineHeight;
+      if (lines.length) {
+        doc.addPage();
+        y = 20;
+      }
+    }
+    y += gap;
+  }
+
+  writeText("Consul.ty consultation export", { size: 18, style: "bold", gap: 6 });
+  writeText(`Consultation ID: ${ticket.code}`);
+  writeText(`Category: ${ticket.category}`);
+  writeText(`Student: ${ticket.student.name}`);
+  writeText(`Professor: ${ticket.professor.name}`);
+  writeText(`Exported: ${formatDate(new Date().toISOString())} ${formatTime(new Date().toISOString())}`, { gap: 8 });
+
+  messages.forEach((message) => {
+    writeText(
+      `[${formatDate(message.created_at)} ${formatTime(message.created_at)}] ${message.from} (${message.role})`,
+      { style: "bold", gap: 2 },
+    );
+    writeText(message.body, { gap: 2 });
+    if (message.files.length) writeText(`Attachments: ${message.files.join(", ")}`, { gap: 5 });
+  });
+
+  doc.save(`consultation-${ticket.code}.pdf`);
+}
+
+function safeSpreadsheetText(value) {
+  const text = String(value == null ? "" : value);
+  return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+}
+
+function exportExcel(ticket, messages) {
+  if (!window.XLSX) throw new Error("The Excel export library did not load.");
+
+  const workbook = window.XLSX.utils.book_new();
+  const overview = [
+    ["Consul.ty consultation export"],
+    ["Consultation ID", ticket.code],
+    ["Category", ticket.category],
+    ["Student", ticket.student.name],
+    ["Professor", ticket.professor.name],
+    ["Exported", `${formatDate(new Date().toISOString())} ${formatTime(new Date().toISOString())}`],
+  ].map((row) => row.map(safeSpreadsheetText));
+  const detailsSheet = window.XLSX.utils.aoa_to_sheet(overview);
+  detailsSheet["!cols"] = [{ wch: 24 }, { wch: 36 }];
+  window.XLSX.utils.book_append_sheet(workbook, detailsSheet, "Consultation");
+
+  const messageRows = [
+    ["Date", "Time", "From", "Role", "Message", "Attachments"],
+    ...messages.map((message) => [
+      formatDate(message.created_at),
+      formatTime(message.created_at),
+      message.from,
+      message.role,
+      message.body,
+      message.files.join(", "),
+    ]),
+  ].map((row) => row.map(safeSpreadsheetText));
+  const messagesSheet = window.XLSX.utils.aoa_to_sheet(messageRows);
+  messagesSheet["!cols"] = [
+    { wch: 14 },
+    { wch: 12 },
+    { wch: 24 },
+    { wch: 14 },
+    { wch: 60 },
+    { wch: 36 },
+  ];
+  window.XLSX.utils.book_append_sheet(workbook, messagesSheet, "Messages");
+
+  const content = window.XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  download(
+    `consultation-${ticket.code}.xlsx`,
+    content,
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  );
+}
+
+async function exportTicket(ticket, format, button, menu) {
   button.disabled = true;
+  menu.querySelector("summary").setAttribute("aria-disabled", "true");
   exportNote.hidden = true;
   try {
     const messages = await db.adminThread(ticket);
-    download(`consultation-${ticket.code}.txt`, transcript(ticket, messages));
+    if (format === "pdf") exportPdf(ticket, messages);
+    else exportExcel(ticket, messages);
   } catch (error) {
     console.error("Export failed.", error);
-    exportNote.textContent = "Couldn't export that conversation. Try again.";
+    exportNote.textContent = "Couldn't export that conversation. Check your connection and try again.";
     exportNote.hidden = false;
+  } finally {
+    button.disabled = false;
+    menu.querySelector("summary").removeAttribute("aria-disabled");
   }
-  button.disabled = false;
 }
 
 /* ---------- Render ---------- */
@@ -127,14 +213,31 @@ function render() {
       make("p", "adm-item-meta", `Consultation ID: ${ticket.code} · To ${ticket.professor.name}`),
     );
 
-    const button = make("button", "adm-export");
-    button.type = "button";
+    const menu = make("details", "adm-export-menu");
+    const button = make("summary", "adm-export");
     button.innerHTML = `${DOWNLOAD_ICON}Export`;
     button.setAttribute("aria-label", `Export consultation ${ticket.code}`);
-    button.addEventListener("click", () => exportTicket(ticket, button));
+    button.addEventListener("click", (event) => {
+      if (button.getAttribute("aria-disabled") === "true") event.preventDefault();
+    });
+    const options = make("div", "adm-export-options");
+    [
+      ["pdf", "PDF (.pdf)"],
+      ["excel", "Excel (.xlsx)"],
+    ].forEach(([format, label]) => {
+      const option = make("button", "", label);
+      option.type = "button";
+      option.addEventListener("click", () => {
+        if (button.getAttribute("aria-disabled") === "true") return;
+        menu.open = false;
+        exportTicket(ticket, format, option, menu);
+      });
+      options.append(option);
+    });
+    menu.append(button, options);
 
     const item = make("li", "adm-item");
-    item.append(avatar, body, button);
+    item.append(avatar, body, menu);
     list.append(item);
   });
 }
