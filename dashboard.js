@@ -46,6 +46,13 @@ function renderCounts(counts) {
   });
 }
 
+function renderAnnouncement(announcement) {
+  const banner = document.getElementById("dashboard-announcement");
+  if (!announcement) return;
+  banner.querySelector("#announcement-text").textContent = announcement;
+  banner.hidden = false;
+}
+
 /* Consultations dropdown + sliding nav pill */
 const nav = document.querySelector(".dash-nav");
 const currentNavItem = nav.querySelector(".is-active");
@@ -95,4 +102,7 @@ fetchDashboardData().then((data) => {
   renderUser(data.user);
   renderAppointment(data.upcoming);
   renderCounts(data.counts);
+  renderAnnouncement(data.announcement);
+}).catch((error) => {
+  console.error("Couldn't load the student dashboard.", error);
 });

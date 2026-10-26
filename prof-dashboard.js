@@ -46,9 +46,19 @@ function renderCounts(counts) {
   });
 }
 
+function renderAnnouncement(announcement) {
+  const banner = document.getElementById("dashboard-announcement");
+  if (!announcement) return;
+  banner.querySelector("#announcement-text").textContent = announcement;
+  banner.hidden = false;
+}
+
 fetchDashboardData().then((data) => {
   if (!data) return;
   renderUser(data.user);
   renderAppointment(data.upcoming);
   renderCounts(data.counts);
+  renderAnnouncement(data.announcement);
+}).catch((error) => {
+  console.error("Couldn't load the professor dashboard.", error);
 });

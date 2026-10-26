@@ -167,6 +167,11 @@
     return s ? { date: s.date, start: hhmm(s.start_time), end: hhmm(s.end_time) } : undefined;
   }
 
+  async function dashboardAnnouncement() {
+    const row = must(await client.from("announcements").select("body, active").eq("id", 1).maybeSingle());
+    return row && row.active && row.body.trim() ? row.body : null;
+  }
+
   async function attachmentUrl(path) {
     const { data, error } = await client.storage.from("attachments").createSignedUrl(path, 120);
     if (error) throw error;
@@ -177,11 +182,12 @@
     const ctx = await getContext("student");
     if (!ctx) return null;
 
-    const [me, cons, next] = await Promise.all([
+    const [me, cons, next, announcement] = await Promise.all([
       ownRow("student", ctx.uid),
       client.from("consultations").select("status").eq("student_id", ctx.uid),
       client.from("schedules").select("date").eq("student_id", ctx.uid)
         .gte("date", today()).order("date").limit(1),
+      dashboardAnnouncement(),
     ]);
 
     const rows = must(cons);
@@ -192,6 +198,7 @@
       user: headerUser(me),
       upcoming: upcoming ? { date: upcoming.date } : null,
       counts: { submitted: rows.length, solved, pending: rows.length - solved },
+      announcement,
     };
   }
 
@@ -333,11 +340,12 @@
     const ctx = await getContext("professor");
     if (!ctx) return null;
 
-    const [me, cons, next] = await Promise.all([
+    const [me, cons, next, announcement] = await Promise.all([
       ownRow("professor", ctx.uid),
       client.from("consultations").select("status").eq("professor_id", ctx.uid),
       client.from("schedules").select("date").eq("professor_id", ctx.uid)
         .gte("date", today()).order("date").limit(1),
+      dashboardAnnouncement(),
     ]);
 
     const rows = must(cons);
@@ -348,6 +356,7 @@
       user: headerUser(me),
       upcoming: upcoming ? { date: upcoming.date } : null,
       counts: { solved: count("solved"), pending: count("pending"), onsite: count("on-site") },
+      announcement,
     };
   }
 

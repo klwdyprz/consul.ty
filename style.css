@@ -709,6 +709,33 @@ body.dashboard {
   background: url("images/dashboardbg.png") center / cover no-repeat;
 }
 
+.dashboard-announcement {
+  max-width: 1150px;
+  margin: 24px auto 0;
+  padding: 18px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 18px;
+  background: rgba(0, 29, 61, 0.78);
+  color: var(--white);
+  box-shadow: 0 8px 28px rgba(0, 10, 30, 0.2);
+}
+
+.dashboard-announcement[hidden] {
+  display: none;
+}
+
+.dashboard-announcement h2 {
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dashboard-announcement p {
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
 .dash-header {
   display: flex;
   flex-wrap: wrap;
