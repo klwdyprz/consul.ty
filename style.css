@@ -718,6 +718,7 @@ body.dashboard {
   background: rgba(0, 29, 61, 0.78);
   color: var(--white);
   box-shadow: 0 8px 28px rgba(0, 10, 30, 0.2);
+  text-align: center;
 }
 
 .dashboard-announcement[hidden] {
